@@ -1,0 +1,411 @@
+
+%% bare_jrnl_compsoc.tex
+%% V1.4a
+%% 2014/09/17
+%% by Michael Shell
+%% See:
+%% http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8a or later) with an IEEE
+%% Computer Society journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%
+%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
+%%                    bare_conf.tex, bare_jrnl.tex, bare_conf_compsoc.tex,
+%%                    bare_jrnl_compsoc.tex, bare_jrnl_transmag.tex
+%%*************************************************************************
+
+
+
+
+\documentclass[10pt,journal,compsoc]{IEEEtran}
+
+
+% *** CITATION PACKAGES ***
+%
+\ifCLASSOPTIONcompsoc
+  % IEEE Computer Society needs nocompress option
+  % requires cite.sty v4.0 or later (November 2003)
+  \usepackage[nocompress]{cite}
+\else
+  % normal IEEE
+  \usepackage{cite}
+\fi
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  \graphicspath{{./img/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  \DeclareGraphicsExtensions{.pdf,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/url/
+% Basically, \url{my_url_here}.
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{Babel: A platform for research in scholarly article recommendation}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+%
+%\IEEEcompsocitemizethanks is a special \thanks that produces the bulleted
+% lists the Computer Society journals use for "first footnote" author
+% affiliations. Use \IEEEcompsocthanksitem which works much like \item
+% for each affiliation group. When not in compsoc mode,
+% \IEEEcompsocitemizethanks becomes like \thanks and
+% \IEEEcompsocthanksitem becomes a line break with idention. This
+% facilitates dual compilation, although admittedly the differences in the
+% desired content of \author between the different types of papers makes a
+% one-size-fits-all approach a daunting prospect. For instance, compsoc 
+% journal papers have the author affiliations above the "Manuscript
+% received ..."  text while in non-compsoc journals this is reversed. Sigh.
+
+\author{Jevin~West,
+        Ian~Wesley-Smith,
+        Carl~T.~Bergstrom
+\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem J. West and I. Wesley-Smith are with
+the Information School, University of Washington, Seattle, WA, 98195-1800.\protect\\
+E-mail: \{jwest, iwsmith\}@uw.edu
+\IEEEcompsocthanksitem C. T. Bergstrom is with the Depart of Biology, University of Washington, Seattle, WA, 98195-1800.}%
+\thanks{Manuscript received July 31, 2015}}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+\markboth{IEEE Transactions on Big Data}%
+{Wesley-Smith \MakeLowercase{\textit{et al.}}: A platform for research in scholarly article recommendation}
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+% The publisher's ID mark at the bottom of the page is less important with
+% Computer Society journal papers as those publications place the marks
+% outside of the main text columns and, therefore, unlike regular IEEE
+% journals, the available text space is not reduced by their presence.
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2014 IEEE}
+% or like this to get the Computer Society new two part style.
+%\IEEEpubid{\makebox[\columnwidth]{\hfill 0000--0000/00/\$00.00~\copyright~2014 IEEE}%
+%\hspace{\columnsep}\makebox[\columnwidth]{Published by the IEEE Computer Society\hfill}}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark (Computer Society jorunal
+% papers don't need this extra clearance.)
+
+
+
+% for Computer Society papers, we must declare the abstract and index terms
+% PRIOR to the title within the \IEEEtitleabstractindextext IEEEtran
+% command as these need to go into the title area created by \maketitle.
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\IEEEtitleabstractindextext{%
+\begin{abstract}
+Researchers developing new recommendation algorithms for scholarly articles face two substantial hurdles: datasets are very difficult to acquire and there is no standardized mechanism for evaluation of these algorithms.
+We are proposing the creation of a Babel, a research platform to help alleviate both of these issues and allow researchers to focus on what they do best -- developing novel recommenders.
+\end{abstract}}
+
+% make the title area
+\maketitle
+
+
+% To allow for easy dual compilation without having to reenter the
+% abstract/keywords data, the \IEEEtitleabstractindextext text will
+% not be used in maketitle, but will appear (i.e., to be "transported")
+% here as \IEEEdisplaynontitleabstractindextext when the compsoc 
+% or transmag modes are not selected <OR> if conference mode is selected 
+% - because all conference papers position the abstract like regular
+% papers do.
+\IEEEdisplaynontitleabstractindextext
+% \IEEEdisplaynontitleabstractindextext has no effect when using
+% compsoc or transmag under a non-conference mode.
+
+
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+\IEEEraisesectionheading{\section{Introduction}\label{sec:introduction}}
+% Computer Society journal (but not conference!) papers do something unusual
+% with the very first section heading (almost always called "Introduction").
+% They place it ABOVE the main text! IEEEtran.cls does not automatically do
+% this for you, but you can achieve this effect with the provided
+% \IEEEraisesectionheading{} command. Note the need to keep any \label that
+% is to refer to the section immediately after \section in the above as
+% \IEEEraisesectionheading puts \section within a raised box.
+
+
+
+\IEEEPARstart Researchers working to develop scholarly article recommenders face two major obstacles in their research.
+First is the difficulty of finding datasets.
+Since much of scholarly communication is behind publisher paywalls it is difficult to collect data.
+Few publishers have made any of their datasets available, and those that are available are legally encumbered, meaning third parties cannot replicate experiments with them.
+Some have chosen to crawl publisher to create their own datasets, but this risk legal action over redistribution of copyrighted material, also limiting reproducibility.
+Some of the more forward thinking publishers have released open datasets to help spur interest in this domain, but these datasets tend to be small in size relative to the overall corpus, while other are of poor quality.
+This leaves researchers in a difficult situations: invest incredible effort in getting these datasets from publishers with the knowledge that your experiments can't be replicated, crawl the datasets and risk legal action, or use the small publicly available data which may not be suitable for recommendation purposes.
+
+The second issues researchers face is determining the efficacy of their recommenders.
+Although techniques exist for evaluating recommenders in other domain with explicitly rated items (such as movies or products) there is no agreement on how recommenders for unrated implicit datasets should be evaluated.
+This has led to a proliferation of ad-hoc techniques and a lack of rigor that has stifled progress in the field, with an inability to determine which avenues of investigation are fruitful.
+In a comprehensive survey of over 170 articles on research paper recommenders Beel et al. concluded ``... that it is currently not possible to determine which recommendation approaches for academic literature are the most promising. However, there is little value in the existence of more than 80 approaches if the best performing approaches are unknown.''\cite{Beel2013survey}
+
+We believe a unified platform for researchers can help solve both of these issues, and have begun work on such a project, calling it Babel after the short story by Borges ``The Library of Babel''.
+Babel provides scholarly article recommendations as a service, freely available to anyone in the world.
+It is our hope that such a service will spur research into scholarly article recommenders, making the pursuit of science more efficient for everyone.
+
+%Broadly there are two approaches to rating recommender systems: qualitative and quantitative.
+%
+%For the qualitative approach we generate recommendations and ask experts to rate them.
+%Though this seems reasonable at first glance there are many issues with this approach.
+%First there is simply the matter of expert availability; there are only so many experts willing to rate recommendations in fields.
+%Finding them is difficult, and rating scholarly article recommendations is likely not their favorite task.
+%Second, there is the problem of bias. 
+%Just because an expert hasn't heard of a paper, or doesn't like it doesn't necessarily mean it is a bad paper.
+%Finally, expert opinions are not reproducible nor comparative. 
+%If two different experts generate different scores for the same set of recommendations what does that mean? 
+%
+%Quantitative evaluation approaches are not without difficulty.
+%In other recommendation domains, such as movies, users are asked to explicitly rate movies they have seen.
+%This allows us to make predictions and compare them to actual ground truths.
+%For scholarly article recommendation there isn't an equivalent to ratings; we rarely have "favorite" papers and even if we do they may not be indicative of what we are looking for right now.
+%Instead, we propose using click through rates and download rates to determine the efficacy of a recommender.
+%Although this approach may lack the nuance of various other options, the authors' feel this metric is difficult to argue with: if your recommender results in more paper downloads than mine you clearly have a superior recommender.
+%
+%Even if you accept that this quantitative measurement is acceptable there is still a serious problem: gathering all this usage data is non-trivial.
+%First, getting recommendations in front of users requires them knowing about your recommender and wanting to use it.
+%Second, you need enough users to draw statistically meaningful conclusions about your recommender.
+%Finally, you need to develop at platform to record users actions and then process it.
+%Any of these steps alone is a difficult problem, putting them all together causes most people to abandon their efforts.
+
+\section{Audience}
+This service is built primarily for two groups of people: consumers of scholarly article recommendations and producers of those recommendations.
+The first group is likely publishers, specifically smaller ones who may not have the time or budget to generate high quality recommendations for their users. 
+However, since these recommendations are freely available there are many possible other users.
+For example, a group working on developing better paper management software might want to integrate recommendations to help users find related material.
+We have developed several tools based on this platform: a demonstration website at \url{recommends.eigenfactor.org} and a Google Chrome plugin that will provide recommendations as you search Google Scholar.
+We invite anyone to develop tooling on top of this platform.
+
+The second group is rather straightforward: it is you. 
+If you are reading this paper you are probably developing new recommendation algorithms, come use Babel!
+
+\section{Licensing}
+Though much of the data we supply is proprietary, the entire source code for the platform will be open source and available on GitHub.
+The goal is to allow other groups to easily setup their own version of Babel, providing API compatibility while keeping their algorithms or data in-house.
+Furthermore, an explicit goal of the project is to collect sufficient usage data on open datasets to create a benchmark dataset for offline comparisons.
+
+\section{Architecture}
+\subsection{Feedback}
+Given that evaluation of these recommenders is one of the goals of this platform we need to have a mechanism to submit feedback about recommendations.
+Currently, we have an API in place for submitting feedback, allowing recommendation consumers (e.g. publishers) to signal what user action was taken by a user.
+There are currently two actions we support, click, which denotes a user clicking on a recommendation and being directed to page with more information about the article, and download, which denotes a user actually downloading an article.
+The API also allows consumers to add annotations, such as a session identifier, so a user's actions through an entire session can be analyzed, and a 
+
+\section{Evaluation}
+One of the primary drivers for creating this platform is to facilitate the evaluation of various scholarly article recommenders.
+Generally there are two approaches for evaluation of recommender systems: offline and online.
+Offline recommendations involve parsing datasets that have some sort of ground truth associated with them. For example, the MovieLens dataset includes user ratings for movies.
+Although this approach is valid recommendations that are explicitly rated it fails for implicitly rated data.
+Furthermore, due to the sparsity of user-item interactions in scholarly article recommendation a large number of items have no explicit user rating. 
+This is in contrast to the MovieLens dataset, which contains 20 million ratings for 27,000 movies.
+
+This idea that scholarly article recommenders are not amenable to offline evaluation has been studied in depth by Beel et al., concluding ''our research showed that offline evaluations could not reliably predict an algorithm’s click-through performance in practice.''\cite{Beel2013}
+In fact, they found that offline evaluation performed very poorly for citation based methods: ''the offline evaluation predicted a disappointing result of 0.96\%. In practice, the citation-based approach had a CTR of 8.27\%''\cite{Beel2013}
+Given this strong condemnation of offline evaluation it is surprising that their survey of scholarly recommenders\cite{Beel2013survey} found only 5 of the 89 approaches were evaluated with online approaches.
+The most likely reason for this is the difficulty of gathering users for online evaluation and the overhead of tracking their responses.
+
+With all of this in mind we propose long-term, implicit field studies focused on two outcomes: did a user view a paper's abstract and did a user download a paper.
+We define the following metrics which Babel will generate on a per-algorithm basis at regular intervals:
+Click-through rate (CTR): clicks/impressions * 100\%
+Download rate (DR): downloads/impressions * 100\%
+Transition rate (TR): downloads/clicks * 100\%
+%TODO: Maybe add a coverage metric?
+Babel's feedback mechanism collects additional facets (some optional) which can be used to group or filter data, including: consumer (i.e. publisher/platform), session identifier, database (e.g. PLOS, arXiv, MAS), psudeononymous user identifier and time.
+
+Furthermore, these metrics will be freely available to the public, allowing quick, easy comparison of various algorithms.
+
+\section{Reproducible Science}
+Another major goal of this project is to be an example of reproducible science in scholarly article recommendation.
+To aid in that effort, all datasets are versioned indefinitely and can be referenced in a content addressable scheme (i.e. by SHA256 hash).
+Platform code can be referenced by git tag or revision hash.
+This allows for publications to reference specific version of the datasets and code, allowing readers to replicate those aspects of this experiment. 
+
+\section{Current Status}
+Currently we've built the ''client'' side of this, allowing for recommendations to be delivered via REST apis and feedback on user actions to be submitted and recorded.
+Only the EigenFactor Recommends recommenders are implemented currently, but we hope to offer co-citation shortly.
+Seven datasets are currently available in the system: JSTOR, PLOS, PubMed, arXiv, DBLP, Microsoft Academic Search and AMiner.
+This constitutes over 37,685,466 papers, with 311,071,184 recommendations available. %TODO: Update w/Aminer
+You can try out the platform at our demonstration website: \url{recommends.eigenfactor.org}.
+
+% use section* for acknowledgment
+\ifCLASSOPTIONcompsoc
+  % The Computer Society usually uses the plural form
+  \section*{Acknowledgments}
+\else
+  % regular IEEE prefers the singular form
+  \section*{Acknowledgment}
+\fi
+
+The Sloan foundation? AWS? 
+
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{./platform.bib}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+%\begin{thebibliography}{1}
+
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+%\end{thebibliography}
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+%\begin{IEEEbiography}{Michael Shell}
+%Biography text here.
+%\end{IEEEbiography}
+
+% if you will not have a photo at all:
+%\begin{IEEEbiographynophoto}{John Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+
+%\begin{IEEEbiographynophoto}{Jane Doe}
+%Biography text here.
+%\end{IEEEbiographynophoto}
+
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+% that's all folks
+\end{document}

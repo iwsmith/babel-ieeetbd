@@ -1,0 +1,11 @@
+*.aux
+*.log
+*.gz
+platform.pdf
+IEEEtran/
+*.fdb_latexmk
+*.fls
+*.swp
+*.bbl
+*.blg
+
