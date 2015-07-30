@@ -125,13 +125,11 @@
 % journal papers have the author affiliations above the "Manuscript
 % received ..."  text while in non-compsoc journals this is reversed. Sigh.
 
-\author{Jevin~West,
-        Ian~Wesley-Smith,
-        Carl~T.~Bergstrom
+\author{Ian~Wesley-Smith,
+		Jevin~West,
 \IEEEcompsocitemizethanks{\IEEEcompsocthanksitem J. West and I. Wesley-Smith are with
 the Information School, University of Washington, Seattle, WA, 98195-1800.\protect\\
-E-mail: \{jwest, iwsmith\}@uw.edu
-\IEEEcompsocthanksitem C. T. Bergstrom is with the Depart of Biology, University of Washington, Seattle, WA, 98195-1800.}%
+E-mail: \{jwest, iwsmith\}@uw.edu}%
 \thanks{Manuscript received July 31, 2015}}
 
 % note the % following the last \IEEEmembership and also \thanks - 
@@ -246,7 +244,10 @@ Although techniques exist for evaluating recommenders in other domain with expli
 This has led to a proliferation of ad-hoc techniques and a lack of rigor that has stifled progress in the field, with an inability to determine which avenues of investigation are fruitful.
 In a comprehensive survey of over 170 articles on research paper recommenders Beel et al. concluded ``... that it is currently not possible to determine which recommendation approaches for academic literature are the most promising. However, there is little value in the existence of more than 80 approaches if the best performing approaches are unknown.''\cite{Beel2013survey}
 
-We believe a unified platform for researchers can help solve both of these issues, and have begun work on such a project, calling it Babel after the short story by Borges ``The Library of Babel''.
+We believe a unified platform for researchers can help solve both of these issues, and have begun work on such a project, calling it Babel after the short story by Jorge Luis Borges ``The Library of Babel''.
+This short story describes a seemingly infinite library filled with all possible books. 
+Most of the books contain gibberish, but amongst the gibberish is also the future, the past, and the present.
+We felt it was a fitting metaphor for navigating scholarly articles: somewhere in all the noise is the paper you need.
 Babel provides scholarly article recommendations as a service, freely available to anyone in the world.
 It is our hope that such a service will spur research into scholarly article recommenders, making the pursuit of science more efficient for everyone.
 
@@ -291,6 +292,27 @@ The goal is to allow other groups to easily setup their own version of Babel, pr
 Furthermore, an explicit goal of the project is to collect sufficient usage data on open datasets to create a benchmark dataset for offline comparisons.
 
 \section{Architecture}
+\begin{figure*}
+\centering
+\includegraphics[width=6.5in]{architecture}
+\caption{Babel's Architecture}
+\label{fig:flow}
+\end{figure*}
+
+Babel is design to provide recommendations as a service via REST APIs.
+Although our implementation is hosted on AWS, it could be run on any cloud provider with some modifications or completely in house if that was desired.
+Our design goals centered around providing low-latency recommendations suitable for client consumption from a web browser, while scaling to support many concurrent users. %TODO: Would be nice to have an actual number
+
+\subsection{Recommendation Generation}
+Once a publisher has uploaded a new dataset to Babel metadata is extracted and stored in the metadata database.
+Simultaneously the publisher's raw data is archived and then transformed into a normalized format suitable for ingestion by recommender algorithms.
+Since we currently have only implemented citation based recommenders this involves creating a link file, with column one indicating a paper id and column two the id of a citation made by the paper.
+Once normalization has occurred all available recommenders are run in parallel.
+Their output is then pushed to the recommendation cache (currently implemented as a DynamoDB). 
+At this point queries against the fronted will return new recommendations. 
+There are several limitations of this system.
+First, Babel only currently supports content based recommenders, it doesn't support collaborative filtering based approaches.
+In the future we will likely add support for such a system once we have built a solid foundation.
 \subsection{Feedback}
 Given that evaluation of these recommenders is one of the goals of this platform we need to have a mechanism to submit feedback about recommendations.
 Currently, we have an API in place for submitting feedback, allowing recommendation consumers (e.g. publishers) to signal what user action was taken by a user.
