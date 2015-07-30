@@ -126,7 +126,7 @@
 % received ..."  text while in non-compsoc journals this is reversed. Sigh.
 
 \author{Ian~Wesley-Smith,
-		Jevin~West,
+		Jevin~West%
 \IEEEcompsocitemizethanks{\IEEEcompsocthanksitem J. West and I. Wesley-Smith are with
 the Information School, University of Washington, Seattle, WA, 98195-1800.\protect\\
 E-mail: \{jwest, iwsmith\}@uw.edu}%
@@ -235,21 +235,21 @@ We are proposing the creation of a Babel, a research platform to help alleviate 
 First is the difficulty of finding datasets.
 Since much of scholarly communication is behind publisher paywalls it is difficult to collect data.
 Few publishers have made any of their datasets available, and those that are available are legally encumbered, meaning third parties cannot replicate experiments with them.
-Some have chosen to crawl publisher to create their own datasets, but this risk legal action over redistribution of copyrighted material, also limiting reproducibility.
-Some of the more forward thinking publishers have released open datasets to help spur interest in this domain, but these datasets tend to be small in size relative to the overall corpus, while other are of poor quality.
-This leaves researchers in a difficult situations: invest incredible effort in getting these datasets from publishers with the knowledge that your experiments can't be replicated, crawl the datasets and risk legal action, or use the small publicly available data which may not be suitable for recommendation purposes.
+Some have chosen to crawl publisher to create their own datasets, but this risks legal action over redistribution of copyrighted material, also limiting reproducibility.
+Some of the more forward thinking publishers have released open datasets to help spur interest in this domain, but these datasets tend to be small in size relative to the overall corpus, while others are of poor quality.
+This leaves researchers in a difficult situations: invest incredible effort in getting these datasets from publishers with the knowledge that your experiments can't be replicated, crawl the datasets and risk legal action, or use the small publicly available data sets which may not be suitable for recommendation purposes.
 
 The second issues researchers face is determining the efficacy of their recommenders.
-Although techniques exist for evaluating recommenders in other domain with explicitly rated items (such as movies or products) there is no agreement on how recommenders for unrated implicit datasets should be evaluated.
+Although techniques exist for evaluating recommenders in other domaisn with explicitly rated items (such as movies or products) there is no agreement on how recommenders for unrated implicit datasets should be evaluated.
 This has led to a proliferation of ad-hoc techniques and a lack of rigor that has stifled progress in the field, with an inability to determine which avenues of investigation are fruitful.
 In a comprehensive survey of over 170 articles on research paper recommenders Beel et al. concluded ``... that it is currently not possible to determine which recommendation approaches for academic literature are the most promising. However, there is little value in the existence of more than 80 approaches if the best performing approaches are unknown.''\cite{Beel2013survey}
 
-We believe a unified platform for researchers can help solve both of these issues, and have begun work on such a project, calling it Babel after the short story by Jorge Luis Borges ``The Library of Babel''.
+We believe a unified platform for researchers can help solve both of these issues, and have begun work on such a project, calling it Babel after the short story by Jorge Luis Borges ``The Library of Babel''. %TODO: Run on sentence
 This short story describes a seemingly infinite library filled with all possible books. 
 Most of the books contain gibberish, but amongst the gibberish is also the future, the past, and the present.
 We felt it was a fitting metaphor for navigating scholarly articles: somewhere in all the noise is the paper you need.
 Babel provides scholarly article recommendations as a service, freely available to anyone in the world.
-It is our hope that such a service will spur research into scholarly article recommenders, making the pursuit of science more efficient for everyone.
+It is our hope that such a service will spur research into scholarly article recommenders and paper management systems, making the pursuit of science more efficient for everyone.
 
 %Broadly there are two approaches to rating recommender systems: qualitative and quantitative.
 %
@@ -274,58 +274,53 @@ It is our hope that such a service will spur research into scholarly article rec
 %Second, you need enough users to draw statistically meaningful conclusions about your recommender.
 %Finally, you need to develop at platform to record users actions and then process it.
 %Any of these steps alone is a difficult problem, putting them all together causes most people to abandon their efforts.
+\begin{table}
+\centering  \begin{tabular}{@{} cccc @{}}    \hline    Dataset & Papers & Citations & Recommendations \\     \hline
+	aminer* & 2,092,356 & 8,024,869 & 22,112,496 \\     JSTOR & 1,787,351 & 8,227,537 & 14,813,224 \\     PLOS & 1,599,712 & 3,232,766 & 8,647,037 \\     PubMed* & 5,538,322 & 16,004,596 & 34,026,854 \\     arXiv & 626,441 & 781,108 & 5,624,262 \\     DBLP* & 781,108 & 4,191,677 & 2,163,313 \\     MAS* & 27,352,532 & N/A & 245,796,494 \\         \hline
+	Total & 39,777,822 & 40,462,553 & 333,183,680 \\  \end{tabular}
+\caption{Datasets currently available on Babel. A * denotes an open access dataset}
+\label{table:datasets}\end{table}
 
 \section{Audience}
+%TODO: Better explain the value proposition to both groups
 This service is built primarily for two groups of people: consumers of scholarly article recommendations and producers of those recommendations.
 The first group is likely publishers, specifically smaller ones who may not have the time or budget to generate high quality recommendations for their users. 
 However, since these recommendations are freely available there are many possible other users.
 For example, a group working on developing better paper management software might want to integrate recommendations to help users find related material.
-We have developed several tools based on this platform: a demonstration website at \url{recommends.eigenfactor.org} and a Google Chrome plugin that will provide recommendations as you search Google Scholar.
+We have developed several tools based on this platform: a demonstration website at \url{recommends.eigenfactor.org}, a Google Chrome plugin that will provide recommendations as you search Google Scholar, and a collaborative effort with JSTOR in their experimental JSTOR Sustainability project\footnote{\url{http://labs.jstor.org/sustainability/}}, providing article level recommendations. %TODO: include chrome plugin link
 We invite anyone to develop tooling on top of this platform.
 
-The second group is rather straightforward: it is you. 
-If you are reading this paper you are probably developing new recommendation algorithms, come use Babel!
+The second group are researchers developing novel recommenders for scholarly articles.
+Researchers will develop against the open datasets in the Babel collection, all of which are provided in a standardized format.
+Once they have successfully integrated against the open datasets they will send us their recommenders and we will run them against the closed datasets and begin providing those recommendations to consumers.
+A day later they will be able to compare the performance of their algorithm to other recommenders on live users.
+We hope that this fast turn around will allow researchers to focus on improving the quality of their algorithms, not the details of acquiring datasets and tracking user behavior. %TODO: Add comment about our datasets here I think
+%TODO: Need to note that we are running Babel, but anyone could download it. Licensing maybe?
 
 \section{Licensing}
 Though much of the data we supply is proprietary, the entire source code for the platform will be open source and available on GitHub.
 The goal is to allow other groups to easily setup their own version of Babel, providing API compatibility while keeping their algorithms or data in-house.
 Furthermore, an explicit goal of the project is to collect sufficient usage data on open datasets to create a benchmark dataset for offline comparisons.
+Authors of recommender systems maintain full IP rights to their recommenders, though recommendations on the Babel platform hosted by us will be distributed freely and unencumbered. 
+Recommender authors can, at any time, ask us to remove their recommender and we will comply in a timely fashion.
 
-\section{Architecture}
-\begin{figure*}
-\centering
-\includegraphics[width=6.5in]{architecture}
-\caption{Babel's Architecture}
-\label{fig:flow}
-\end{figure*}
-
-Babel is design to provide recommendations as a service via REST APIs.
-Although our implementation is hosted on AWS, it could be run on any cloud provider with some modifications or completely in house if that was desired.
-Our design goals centered around providing low-latency recommendations suitable for client consumption from a web browser, while scaling to support many concurrent users. %TODO: Would be nice to have an actual number
-
-\subsection{Recommendation Generation}
-Once a publisher has uploaded a new dataset to Babel metadata is extracted and stored in the metadata database.
-Simultaneously the publisher's raw data is archived and then transformed into a normalized format suitable for ingestion by recommender algorithms.
-Since we currently have only implemented citation based recommenders this involves creating a link file, with column one indicating a paper id and column two the id of a citation made by the paper.
-Once normalization has occurred all available recommenders are run in parallel.
-Their output is then pushed to the recommendation cache (currently implemented as a DynamoDB). 
-At this point queries against the fronted will return new recommendations. 
-There are several limitations of this system.
-First, Babel only currently supports content based recommenders, it doesn't support collaborative filtering based approaches.
-In the future we will likely add support for such a system once we have built a solid foundation.
-\subsection{Feedback}
-Given that evaluation of these recommenders is one of the goals of this platform we need to have a mechanism to submit feedback about recommendations.
-Currently, we have an API in place for submitting feedback, allowing recommendation consumers (e.g. publishers) to signal what user action was taken by a user.
-There are currently two actions we support, click, which denotes a user clicking on a recommendation and being directed to page with more information about the article, and download, which denotes a user actually downloading an article.
-The API also allows consumers to add annotations, such as a session identifier, so a user's actions through an entire session can be analyzed, and a 
-
-\section{Evaluation}
+\section{Evaluation}%TODO: This first paragraph needs some love
 One of the primary drivers for creating this platform is to facilitate the evaluation of various scholarly article recommenders.
 Generally there are two approaches for evaluation of recommender systems: offline and online.
 Offline recommendations involve parsing datasets that have some sort of ground truth associated with them. For example, the MovieLens dataset includes user ratings for movies.
-Although this approach is valid recommendations that are explicitly rated it fails for implicitly rated data.
-Furthermore, due to the sparsity of user-item interactions in scholarly article recommendation a large number of items have no explicit user rating. 
-This is in contrast to the MovieLens dataset, which contains 20 million ratings for 27,000 movies.
+Although this approach is valid for recommendations that are explicitly rated it fails for implicitly rated data.
+Furthermore, due to the sparsity of user-item interactions in scholarly article recommendation, gathering explicit ratings would be of little value.
+Consider, for example, the MovieLens dataset, which contains 20 million ratings for 27,000 movies; nearly three orders of magnitude more user-item interactions than there are items.
+
+When a ground truth isn't available qualitative evaluations are often used.
+A common approach is to ask experts in a given field to rate the quality of recommendations generated by various algorithms.
+Although this method can provide extremely useful information to guide development of these algorithms, it is inadequate for comparing various algorithms.
+One of the main reasons is its lack of scalability: finding experts is difficult and asking them to rate recommendations is a time consuming task for them.
+If you want to generate even a relatively small number of recommendations, say ~.01\% of all scholarly literature (estimated to be nearly 150 million by [TODO: ADD CITATION]), that is nearly fifteen thousand recommendations, or 150,000 papers (assuming 10 papers per-recommendation).
+Clearly the amount of data involved is too large for one expert, or even an hundred experts.
+There are also questions of bias and coverage; everyone has certain preferences, and in some fields it may be difficult to find a local expert.
+Finally the methodology isn't reproducible: I cannot take your offline dataset, run my recommender and compare our results without using an expert of my own (and ideally the same expert).
+Even if one could, how do you deal with conflicting expert rankings? 
 
 This idea that scholarly article recommenders are not amenable to offline evaluation has been studied in depth by Beel et al., concluding ''our research showed that offline evaluations could not reliably predict an algorithm’s click-through performance in practice.''\cite{Beel2013}
 In fact, they found that offline evaluation performed very poorly for citation based methods: ''the offline evaluation predicted a disappointing result of 0.96\%. In practice, the citation-based approach had a CTR of 8.27\%''\cite{Beel2013}
@@ -334,13 +329,16 @@ The most likely reason for this is the difficulty of gathering users for online 
 
 With all of this in mind we propose long-term, implicit field studies focused on two outcomes: did a user view a paper's abstract and did a user download a paper.
 We define the following metrics which Babel will generate on a per-algorithm basis at regular intervals:
-Click-through rate (CTR): clicks/impressions * 100\%
-Download rate (DR): downloads/impressions * 100\%
-Transition rate (TR): downloads/clicks * 100\%
+\begin{itemize}
+\item Click-through rate (CTR): clicks/impressions * 100\%
+\item Download rate (DR): downloads/impressions * 100\%
+\item Transition rate (TR): downloads/clicks * 100\%
+\end{itemize}
 %TODO: Maybe add a coverage metric?
-Babel's feedback mechanism collects additional facets (some optional) which can be used to group or filter data, including: consumer (i.e. publisher/platform), session identifier, database (e.g. PLOS, arXiv, MAS), psudeononymous user identifier and time.
-
-Furthermore, these metrics will be freely available to the public, allowing quick, easy comparison of various algorithms.
+Impressions is defined as the number of times a recommendation generated by the algorithm was shown.
+Note that all of these metrics are relative to other recommenders, they don't provide an absolute measure of performance.
+This is why these metrics will all be freely available to be the public for all algorithms, with full histories and various time windows available for analysis and comparison.
+Babel's feedback mechanism collects additional facets (some optional) which can be used to group or filter data, including: consumer (i.e. publisher/platform), session identifier, database (e.g. PLOS, arXiv, MAS), pseudonymous user identifier and time.
 
 \section{Reproducible Science}
 Another major goal of this project is to be an example of reproducible science in scholarly article recommendation.
@@ -348,12 +346,51 @@ To aid in that effort, all datasets are versioned indefinitely and can be refere
 Platform code can be referenced by git tag or revision hash.
 This allows for publications to reference specific version of the datasets and code, allowing readers to replicate those aspects of this experiment. 
 
+\section{Architecture}
+\begin{figure*}
+\centering
+\includegraphics[width=6.5in]{architecture}
+\caption{Babel's Architecture. 1) Public endpoint, exposing a REST API that provides scholarly article recommendations. 2) Recommendation generation and dataset ingestion.}
+\label{fig:arch}
+\end{figure*}
+
+Babel is design to provide recommendations as a service via REST APIs.
+Although our implementation is hosted on AWS, it could be run on any cloud provider with some modifications or completely in house if that was desired.
+Our design goals centered around providing low-latency recommendations suitable for client consumption from a web browser, while scaling to support many concurrent users. %TODO: Would be nice to have an actual number
+
+\subsection{Public Endpoint}
+The public endpoint is what consumers will interact with, and is represented in figure~\ref{fig:arch} by 1.
+This endpoint exposes a REST API (optionally over SSL), which, given a paper identifier and a publisher, will generate a list of recommendations with various recommendations algorithms, returned in JSON format. 
+Endpoints will pull recommendations for the recommendation cache, and emit analytics events to allow for evaluation of various recommenders performance. 
+Detailed documentation of the current API exposed by the endpoint is available at \url{http://babel.eigenfactor.org/api.html}%TODO: Should we note the search API that is available?
+
+\subsection{Recommendation Generation}%TODO: Explain how datasets are uploaded?
+Once a publisher has uploaded a new dataset to Babel metadata is extracted and stored in the metadata database.
+Simultaneously the publisher's raw data is archived and then transformed into a normalized format suitable for ingestion by recommender algorithms.
+Since we currently have only implemented citation based recommenders this involves creating a link file, with column one indicating a paper id and column two the id of a citation made by the paper.
+Once normalization has occurred all available recommenders are run in parallel.
+Their output is then pushed to the recommendation cache (currently implemented as a DynamoDB). 
+At this point queries against the fronted will return new recommendations. 
+There are several limitations of this system. %TODO: Probably pull out and discuss limitations elsewhere.
+First, Babel only currently supports content based recommenders, it doesn't support collaborative filtering based approaches.
+In the future we will likely add support for such a system once we have built a solid foundation.
+
+\subsection{Feedback}%TODO: Feels a bit light here, probably because a lot of this is theoretical :-/
+Given that evaluation of these recommenders is one of the goals of this platform we need to have a mechanism to submit feedback about recommendations.
+Currently, we have an API in place for submitting feedback, allowing recommendation consumers (e.g. publishers) to signal what action was taken by a user.
+There are currently two actions we support, click, which denotes a user clicking on a recommendation and being directed to page with more information about the article, and download, which denotes a user actually downloading an article.
+The API also allows consumers to add annotations, such as a session identifier, so a user's actions through an entire session can be analyzed.
+As new requirements are added we will expand the capabilities of the analytics system to record data.
+All feedback is aggregated on a daily basis and new evaluation metrics calculated.
+
+
+
 \section{Current Status}
 Currently we've built the ''client'' side of this, allowing for recommendations to be delivered via REST apis and feedback on user actions to be submitted and recorded.
-Only the EigenFactor Recommends recommenders are implemented currently, but we hope to offer co-citation shortly.
-Seven datasets are currently available in the system: JSTOR, PLOS, PubMed, arXiv, DBLP, Microsoft Academic Search and AMiner.
-This constitutes over 37,685,466 papers, with 311,071,184 recommendations available. %TODO: Update w/Aminer
-You can try out the platform at our demonstration website: \url{recommends.eigenfactor.org}.
+Our plan is to onboard several publishers in the coming months.
+Once we have validated our design to deliver recommendations and record feedback we will being adding new recommenders.
+Only the EigenFactor Recommends recommenders are implemented currently, but we will offer co-citation shortly.
+You can try out the platform at our demonstration website: \url{babel.eigenfactor.org}.
 
 % use section* for acknowledgment
 \ifCLASSOPTIONcompsoc
