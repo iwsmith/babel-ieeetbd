@@ -316,7 +316,7 @@ A common approach is to ask experts in a given field to rate the quality of reco
 Although this method can provide extremely useful information to guide development of these algorithms, it is inadequate for comparing different algorithms.
 One of the main reasons is its lack of scalability: finding experts is difficult and asking them to rate recommendations is a time consuming task for them.
 If you want to generate even a relatively small number of recommendations, say ~.01\% of all scholarly literature (estimated to be nearly 150 million by [TODO: ADD CITATION]), that is nearly fifteen thousand recommendations, or 150,000 papers (assuming 10 papers per-recommendation).
-Clearly the amount of data involved is too large for one expert, or even an hundred experts.
+Clearly the amount of data involved is too large for one expert, or even a hundred experts.
 There are also questions of bias and coverage; everyone has certain preferences, and in some fields it may be difficult to find an expert.
 Finally the methodology isn't reproducible: I cannot take your offline dataset, run my recommender and compare our results without using an expert of my own (and ideally the same expert).
 Even if one could, how do you deal with conflicting expert rankings? %TODO: Improve our anti-expert bias
@@ -326,7 +326,7 @@ In fact, they found that offline evaluation performed very poorly for citation b
 Given this strong condemnation of offline evaluation it is surprising that a survey of scholarly recommenders\cite{Beel2013survey} found only 5 of the 89 approaches were evaluated with online approaches.
 The most likely reason for this is the difficulty of gathering users for online evaluation and the overhead of tracking their responses.
 
-With all of this in mind we propose online evaluation using long-term, implicit field studies focused on two outcomes: did a user view a paper's abstract and did a user download a paper.
+With all of this in mind we propose online evaluation using long-term, observational field studies focused on two outcomes: did a user view a paper's abstract and did a user download a paper.
 We chose these metrics because they are user centric and they make good optimization goals. 
 Ultimately we want users to spend less time sifting through irrelevant papers and more time reading the ones that matter.
 We define the following metrics which Babel will generate on a per-algorithm basis at regular intervals:
@@ -347,13 +347,14 @@ Babel's feedback mechanism collects additional metadata (most optional) which ca
 \caption{Babel's Architecture. 1) Public endpoint, exposing a REST API that provides scholarly article recommendations. 2) Recommendation generation and dataset ingestion.}
 \label{fig:arch}
 \end{figure*}
+
 \section{Architecture}
 Babel is designed to provide recommendations as a service via REST APIs.
 Although our implementation is hosted on AWS, it could be run on any cloud provider with some modifications or completely in house if that was desired.
-Our design goals centered around providing low-latency recommendations suitable for client consumption from a web browser, while scaling horizontally to support many concurrent users. %TODO: Would be nice to have an actual number
+Our design goals centered around providing low-latency recommendations suitable for client consumption from a web browser, while scaling horizontally to support a large number of concurrent users. %TODO: Would be nice to have an actual number
 
 \subsection{Public Endpoint}
-The public endpoint is what consumers will interact with, and is represented in figure~\ref{fig:arch} item 1.
+The public endpoint is what consumers will interact with, and is represented in figure~\ref{fig:arch} item (1).
 This endpoint exposes a REST API, which, given a paper identifier and a publisher, will generate a list of recommendations with various recommendations algorithms, returned in JSON format. 
 Endpoints will pull recommendations for the recommendation cache, and emit analytics events to allow for evaluation of various recommenders performance. 
 Detailed documentation of the current API exposed by the endpoint is available at \url{http://babel.eigenfactor.org/api.html}%TODO: Should we note the search API that is available?
@@ -363,7 +364,7 @@ Recommendation generation, represented in figure~\ref{fig:arch} by item 2, occur
 Once a publisher has uploaded a new dataset to Babel, metadata is extracted and stored in the metadata database.
 Simultaneously the publisher's raw data is archived and then transformed into a normalized format suitable for ingestion by recommender algorithms.
 Once normalization has occurred all available recommenders are run in parallel.
-Their output is then pushed to the recommendation cache, currently implemented in DynamoDB. 
+Their output is then pushed to the recommendation cache, which is currently implemented in DynamoDB. 
 At this point queries against the frontend will return new recommendations. 
 
 \subsection{Feedback}%TODO: Feels a bit light here, probably because a lot of this is theoretical :-/
