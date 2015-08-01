@@ -293,7 +293,22 @@ Finally there are several explicit non-goals; these are things we don't intend f
 \label{table:datasets}
 \end{table}
 
+\begin{figure*}
+\centering
+\includegraphics[width=6.5in]{babel_site}
+\caption{Screenshot of the Babel demonstration website. This single-app page is powered by Babel.}
+\label{fig:demo_site}
+\end{figure*}
+
+\begin{figure*}
+\centering
+\includegraphics[width=6.5in]{chrome_plugin}
+\caption{Screenshot of our Google Chrome plugin which provides recommendations directly on the Google Scholar site. This plugin is powered by Bable.}
+\label{fig:chrome_plugin}
+\end{figure*}
+
 \section{Audience}
+
 %TODO: Better explain the value proposition to both groups
 This service is built primarily for two groups of people: consumers of scholarly article recommendations and producers of those recommendations.
 The first group is likely publishers, specifically smaller ones who may not have the time or budget to generate high quality recommendations for their users. 
@@ -399,6 +414,7 @@ Finally, since the platform code is open-source, in the worst case scenario anot
 
 \section{Current Status}
 Currently we've built the the public endpoint, allowing for recommendations to be delivered and feedback on user actions to be submitted and recorded.
+Babel currently delivered EigenFactor Recommends Expert and Classic recommendations\cite{West2015}, with co-citation being added shortly.
 Our current goal is to on-board several publishers of various sizes to validate our endpoint design, specifically around latency, scalability and analytics.
 Once we have done this we will begin soliciting regular updates from publishers to validate the recommendation generation phase.
 Finally, we will open the system to researchers who wish to implement new recommendation algorithms.
@@ -414,7 +430,7 @@ You can try out the platform at, read API documentation or learn more about the 
 \fi
 
 This work was supported the Metaknowledge Network funded by the John Templeton Foundation. 
-We would like to thank Nick Thorpe for feedback on early drafts of this paper.
+We would like to thank Kyle Estlick for his development of the Google Chrome plugin and Nick Thorpe for feedback on early drafts of this paper.
 
 
 % references section
